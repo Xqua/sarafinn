@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import { Progress, Container, Header, Statistic } from 'semantic-ui-react'
@@ -9,6 +8,8 @@ let conceptionDate = new Date('June 1, 2020 22:15:30');
 // weight in gram
 // height in cm
 let statsTable = {
+  0:  {weight: 0, height: 0},
+  1:  {weight: 1, height: 1},
   10: {weight: 35, height: 3.2},
   11: {weight: 45, height: 4.2},
   12: {weight: 58, height: 5.3},
@@ -53,18 +54,14 @@ function interpolate(week, metric) {
 
 function App() {
 
-  const [now, setNow] = useState(Date.now());
-  const [timeElapsed, setTimeElapsed] = useState(0);
   const [daysElapsed, setDaysElapsed] = useState(0);
-  const [weeksElasped, setWeeksElapsed] = useState(10);
+  const [weeksElasped, setWeeksElapsed] = useState(0);
 
   useEffect(() => {
   // Update the document title using the browser API
     const interval = setInterval(() => {
       const now = Date.now();
-      setNow(now);
       const timeElapsed = now - conceptionDate;
-      setTimeElapsed(timeElapsed);
       const daysElapsed = timeElapsed / (1000 * 3600 * 24);
       setDaysElapsed(daysElapsed);
       const weeksElasped = daysElapsed / 7
@@ -74,7 +71,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="root">
     <Container textAlign="center" className="App-header">
       <Header
         as='h1'
@@ -84,13 +81,12 @@ function App() {
           fontSize: '2em',
           fontWeight: 'normal',
           marginBottom: 0,
-          marginTop: '1.5em',
         }}
       >SaraFinn's Baby progress bar</Header>
       <Progress percent={((weeksElasped/40) * 100).toFixed(5)} color='purple' size='big' progress/>
       <Header as="h2" style={{color: "white"}}>Baby is compiling... Please wait!</Header>
     </Container>
-    <Container>
+    <Container className="App-stats">
       <Statistic.Group>
       <Statistic>
         <Statistic.Value>{Math.round(daysElapsed)}</Statistic.Value>

@@ -11,5 +11,13 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-top: 20px;
   margin-bottom: 5vh;
+  margin-left: auto!important;
+  margin-right: auto!important;
+}
+
+.App-stats {
+  background-color: white;
+  padding: 15px;
 }
